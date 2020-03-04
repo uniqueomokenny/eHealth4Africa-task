@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% block extra_style %}
+<style>
+  .form-text {
+    display: none;
+  }
+
+  .form-size {
+    max-width: 30rem;
+  }
+</style>
+{% endblock extra_style %}
+
+
+{% block content %}
+<div class="container form-size">
+  <h1 class="font-weight-bolder">Sign Up</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input class="btn btn-primary" type="submit" value="Sign Up">
+  </form>
+</div>
+{% endblock content %}
