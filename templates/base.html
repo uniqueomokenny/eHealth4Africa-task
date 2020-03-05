@@ -14,11 +14,37 @@
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
 
+  <style>
+    .alert-container {
+      max-width: 40rem !important;
+    }
+
+    .alert-error {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb
+    }
+  </style>
+
   {% block extra_style %}
+
   {% endblock extra_style %}
 </head>
 
 <body>
+  {% if messages %}
+  <div class="mt-5">
+    {% for message in messages %}
+    <div id="message" class="container alert-container">
+      <div class="alert alert-{{ message.tags }} alert-dismissable alert-link text-center" role="alert">
+        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   {% block content %} {% endblock content %}
 </body>
 

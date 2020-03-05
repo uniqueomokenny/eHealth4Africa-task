@@ -4,10 +4,6 @@
 
 {% block extra_style %}
 <style>
-  .form-text {
-    display: none;
-  }
-
   .form-container {
     max-width: 30rem;
   }
@@ -15,21 +11,17 @@
   label {
     display: none;
   }
-
-  .form-check label {
-    display: inline-block !important;
-  }
 </style>
 {% endblock extra_style %}
 
 
 {% block content %}
 <div class="container form-container mt-5">
-  <h1 class="font-weight-bolder text-muted">Sign Up</h1>
+  <h1 class="font-weight-bolder text-muted">Sign In</h1>
   <form method="post" novalidate>
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input class="btn btn-primary btn-block" type="submit" value="Sign up">
+    <input class="btn btn-primary btn-block" type="submit" value="Sign in">
   </form>
 </div>
 {% endblock content %}
