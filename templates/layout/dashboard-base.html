@@ -48,7 +48,7 @@
             <a class="nav-link" href="{% url 'core:add-medical-info' %}">Medical Info</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Statistical Details</a>
+            <a class="nav-link" href="{% url 'core:statistical-details' %}">Statistical Details</a>
           </li>
         </ul>
       </div>
@@ -71,6 +71,8 @@
   <div class="container">
     {% block content %} {% endblock content %}
   </div>
+
+  {% block js %} {% endblock js %}
 </body>
 
 </html>

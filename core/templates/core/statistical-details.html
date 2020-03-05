@@ -1,0 +1,83 @@
+{% extends 'layout/dashboard-base.html' %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
+<style>
+  .chart-container {
+    width: 100%;
+    height: 20rem;
+  }
+
+  .medical-chart {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+{% endblock extra_style %}
+
+{% block content %}
+<h2 class="text-muted">Statistical Details</h2>
+<div class="chart-container">
+  <div class="medical-chart"></div>
+</div>
+
+<!-- {{ medical_info }} -->
+{% endblock content %}
+
+{% block js %}
+<script>
+  function convert_to_set_and_count(a) {
+    var unique_obj = {};
+    var j = 0;
+    for (var i = 0; i < a.length; i++) {
+      var item = a[i];
+      if (unique_obj[item] !== 1) {
+        unique_obj[item] = 1;
+      } else {
+        unique_obj[item]++
+      }
+    }
+
+    return unique_obj;
+  }
+
+  let medical_info = {{ medical_info | safe }}
+
+  let diagnosis = medical_info.map(i => i.diagnosis)
+
+  let diagnosis_count_obj = convert_to_set_and_count(diagnosis)
+
+  let labels = Object.keys(diagnosis_count_obj)
+  let series = labels.map(k => diagnosis_count_obj[k])
+
+  const data = {
+    labels,
+    series
+  };
+
+  const options = {
+    labelInterpolationFnc: function (value) {
+      return value[0]
+    }
+  };
+
+  const responsiveOptions = [
+    ['screen and (min-width: 640px)', {
+      chartPadding: 30,
+      labelOffset: 100,
+      labelDirection: 'explode',
+      labelInterpolationFnc: function (value) {
+        return value;
+      }
+    }],
+    ['screen and (min-width: 1024px)', {
+      labelOffset: 80,
+      chartPadding: 20
+    }]
+  ];
+
+  new Chartist.Pie('.medical-chart', data, options, responsiveOptions);
+</script>
+{% endblock js %}

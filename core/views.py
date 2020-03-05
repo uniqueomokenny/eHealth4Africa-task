@@ -30,3 +30,15 @@ class MedicalInfoView(View):
         return render(request, 'core/add-medical-info.html', {"form": form})
     
     return render(request, 'core/add-medical-info.html', {"form": form})
+
+
+
+def statistical_details(request):
+  medical_recodes = MedicalInfo.objects.all()
+  medical_info = []
+  for recode in medical_recodes:
+    medical_info.append({
+      "diagnosis": recode.get_diagnosis_display()
+    })
+
+  return render(request, 'core/statistical-details.html', {"medical_info": medical_info})
