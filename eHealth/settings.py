@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 
     # apps
     "users.apps.UsersConfig",
+    "core.apps.CoreConfig",
 
     # libraries
     "bootstrap4",

@@ -21,8 +21,6 @@ class SignInView(View):
 
   def post(self, request):
     form = UserSignInForm(request.POST)
-    username = request.POST['username']
-    password = request.POST['password']
 
     if form.is_valid():
       user = authenticate(request, **form.cleaned_data)
