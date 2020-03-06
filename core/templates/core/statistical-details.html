@@ -33,7 +33,7 @@
     var j = 0;
     for (var i = 0; i < a.length; i++) {
       var item = a[i];
-      if (unique_obj[item] !== 1) {
+      if (!unique_obj[item]) {
         unique_obj[item] = 1;
       } else {
         unique_obj[item]++
@@ -44,10 +44,13 @@
   }
 
   let medical_info = {{ medical_info | safe }}
+  console.log(medical_info)
 
   let diagnosis = medical_info.map(i => i.diagnosis)
 
   let diagnosis_count_obj = convert_to_set_and_count(diagnosis)
+
+  console.log(diagnosis_count_obj)
 
   let labels = Object.keys(diagnosis_count_obj)
   let series = labels.map(k => diagnosis_count_obj[k])
