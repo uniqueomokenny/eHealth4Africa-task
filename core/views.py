@@ -14,6 +14,13 @@ from .input_choices import DIAGNOSIS_CHOICES
 class HomeView(LoginRequiredMixin, TemplateView):
   template_name='core/home.html'
 
+  def get(self, request, *args, **kwargs):
+    user_medical_info = MedicalInfo.objects.filter(user=request.user).first()
+
+    context = self.get_context_data(**kwargs)
+    context["user_medical_info"] = user_medical_info
+    return self.render_to_response(context)
+
 class MedicalInfoView(LoginRequiredMixin, View):
   def get(self, request):
     form = AddMedicalInfoForm()
@@ -50,7 +57,6 @@ def statistical_details(request):
 @medical_practioner_login_required
 def medical_recodes(request):
   query = request.GET.get('q')
-  print(query)
   medical_recodes = MedicalInfo.objects.all()
   if query is not None:
     medical_recodes = MedicalInfo.objects.filter(diagnosis=query)
