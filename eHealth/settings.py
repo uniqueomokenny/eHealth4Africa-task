@@ -1,6 +1,6 @@
 import os
 
-# import django_heroku
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -15,7 +15,7 @@ SECRET_KEY = '_@c)9^%$8%94p$w&7y94uwnb-$dg!8+6ayunuee@k679=kqimo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "e-health4.herokuapp.com"]
 
 
 # Application definition
@@ -141,4 +141,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
