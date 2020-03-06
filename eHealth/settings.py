@@ -34,7 +34,6 @@ INSTALLED_APPS = [
 
     # libraries
     "bootstrap4",
-    "crispy_forms"
 ]
 
 MIDDLEWARE = [
