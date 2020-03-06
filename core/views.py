@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -23,8 +23,9 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
 class MedicalInfoView(LoginRequiredMixin, View):
   def get(self, request):
+    user_medical_info = MedicalInfo.objects.filter(user=request.user).first()
     form = AddMedicalInfoForm()
-    return render(request, 'core/add-medical-info.html', {"form": form})
+    return render(request, 'core/add-medical-info.html', {"form": form, "user_medical_info": user_medical_info})
 
   def post(self, request):
     form = AddMedicalInfoForm(request.POST)
@@ -41,6 +42,14 @@ class MedicalInfoView(LoginRequiredMixin, View):
         return render(request, 'core/add-medical-info.html', {"form": form})
     
     return render(request, 'core/add-medical-info.html', {"form": form})
+
+
+class MedicalInfoUpdateView(UpdateView):
+  form_class = AddMedicalInfoForm
+  success_url = '/'
+  template_name = 'core/update-medical-info.html'
+  model = MedicalInfo
+  
 
 
 @login_required
