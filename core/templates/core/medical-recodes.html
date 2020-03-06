@@ -1,6 +1,24 @@
 {% extends 'layout/dashboard-base.html' %}
 
 {% block content %}
+<div class="d-flex justify-content-center">
+  <form action="" method="GET" class="col-md-6">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary" type="submit">Filter</button>
+      </div>
+      <select name="q" class="form-control">
+        {% for key, value in diagnosis_choices %}
+        <option value="{{ key }}">
+          {{ value }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+  </form>
+</div>
+<hr>
+
 <h2 class="text-muted text-center">Medical Records</h2>
 {% if medical_recodes %}
 <table class="table table-dark">

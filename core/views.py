@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from .models import MedicalInfo
 from .forms import AddMedicalInfoForm
 from .decorators import medical_practioner_login_required
+from .input_choices import DIAGNOSIS_CHOICES
 
 class HomeView(TemplateView):
   template_name='core/home.html'
@@ -46,5 +47,17 @@ def statistical_details(request):
 
 @medical_practioner_login_required
 def medical_recodes(request):
+  query = request.GET.get('q')
+  print(query)
   medical_recodes = MedicalInfo.objects.all()
-  return render(request, 'core/medical-recodes.html', {"medical_recodes": medical_recodes})
+  if query is not None:
+    medical_recodes = MedicalInfo.objects.filter(diagnosis=query)
+    if query == '':
+      medical_recodes = MedicalInfo.objects.all()
+
+  context =  {
+    "medical_recodes": medical_recodes,
+    'diagnosis_choices': DIAGNOSIS_CHOICES,
+    "query": query
+  }
+  return render(request, 'core/medical-recodes.html', context)
