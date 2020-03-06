@@ -1,0 +1,33 @@
+{% extends 'layout/dashboard-base.html' %}
+
+{% block content %}
+<h2 class="text-muted text-center">Medical Records</h2>
+{% if medical_recodes %}
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Blood Group</th>
+      <th scope="col">Diagnosis</th>
+      <th scope="col">Vital Signs</th>
+      <th scope="col">Medications</th>
+      <th scope="col">Allergies</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for recode in medical_recodes %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ recode.user.full_name }}</td>
+      <td>{{ recode.blood_group }}</td>
+      <td>{{ recode.get_diagnosis_display }}</td>
+      <td>{{ recode.vital_signs }}</td>
+      <td>{{ recode.medications }}</td>
+      <td>{{ recode.allergies }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock content %}

@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 
 from .models import MedicalInfo
 from .forms import AddMedicalInfoForm
+from .decorators import medical_practioner_login_required
 
 class HomeView(TemplateView):
   template_name='core/home.html'
@@ -42,3 +43,8 @@ def statistical_details(request):
     })
 
   return render(request, 'core/statistical-details.html', {"medical_info": medical_info})
+
+@medical_practioner_login_required
+def medical_recodes(request):
+  medical_recodes = MedicalInfo.objects.all()
+  return render(request, 'core/medical-recodes.html', {"medical_recodes": medical_recodes})
