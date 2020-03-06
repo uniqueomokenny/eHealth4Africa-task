@@ -51,12 +51,26 @@
             <a class="nav-link" href="{% url 'core:statistical-details' %}">Statistical Details</a>
           </li>
 
-          {% if request.user.is_medical_practioner %}
+          {% if user.is_medical_practioner %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'core:medical-recodes' %}">Medical Records</a>
           </li>
           {% endif %}
         </ul>
+
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{ user.username }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
+            </div>
+          </li>
+        </ul>
+        {% endif %}
       </div>
     </div>
   </nav>

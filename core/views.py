@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
@@ -9,10 +11,10 @@ from .forms import AddMedicalInfoForm
 from .decorators import medical_practioner_login_required
 from .input_choices import DIAGNOSIS_CHOICES
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
   template_name='core/home.html'
 
-class MedicalInfoView(View):
+class MedicalInfoView(LoginRequiredMixin, View):
   def get(self, request):
     form = AddMedicalInfoForm()
     return render(request, 'core/add-medical-info.html', {"form": form})
@@ -34,7 +36,7 @@ class MedicalInfoView(View):
     return render(request, 'core/add-medical-info.html', {"form": form})
 
 
-
+@login_required
 def statistical_details(request):
   medical_recodes = MedicalInfo.objects.all()
   medical_info = []
