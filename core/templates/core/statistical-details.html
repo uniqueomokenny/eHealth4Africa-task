@@ -50,12 +50,8 @@
 
   let diagnosis_count_obj = convert_to_set_and_count(diagnosis)
 
-  console.log(diagnosis_count_obj)
-
   let labels = Object.keys(diagnosis_count_obj)
   let series = labels.map(k => diagnosis_count_obj[k])
-
-  console.log(labels, series)
 
   const data = {
     labels,
